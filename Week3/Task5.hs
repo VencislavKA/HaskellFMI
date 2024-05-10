@@ -17,4 +17,4 @@ p number = pHelper number 0 0
     pHelper :: Int -> Int -> Int -> Int
     pHelper number counter res
      | counter == number = res
-     | otherwise = pHelper number (counter + 1) (res + (3 * (counter + 1) - 2))
+     | otherwise = pHelper number (counter + 1) (res + 3 * (counter + 1) - 2)
