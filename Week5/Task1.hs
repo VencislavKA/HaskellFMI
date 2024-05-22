@@ -1,4 +1,5 @@
-import Data.Char (digitToInt)
+import Data.Char
+import Data.List
 main :: IO()
 main = do
     print $ getPrimesLC 1 100 == [7,17,37,47,67,71,73,79,97]
@@ -10,20 +11,13 @@ main = do
     print $ getPrimesLC 1 1 == [] -- my test
 
 isContaining :: Int -> Int -> Bool
-isContaining 0 n = False
-isContaining number n = mod number 10 == n || isContaining (div number 10) n
+isContaining n = elem n . map digitToInt . show
 
 isPrime :: Int -> Bool
-isPrime 2 = True
-isPrime number = number > 1 && isPrimeHelper 2 (ceiling (sqrt $ fromIntegral number))
- where
-  isPrimeHelper d sqrtN
-   | d > sqrtN = True
-   | mod number d == 0 = False
-   | otherwise = isPrimeHelper (d + 1) sqrtN
+isPrime number = [1,number] == filter (\d -> mod number d == 0) [1 .. number]
 
 getPrimesLC::Int -> Int -> [Int]
-getPrimesLC start end = [x| x <- [min start end .. max start end],isContaining x 7,isPrime x]
+getPrimesLC start end = [x| x <- [min start end .. max start end],isContaining 7 x,isPrime x]
 
 getPrimesHOF:: Int -> Int -> [Int]
-getPrimesHOF start end = filter (elem 7 . map digitToInt . show) $ filter isPrime [min start end .. max start end] -- elem 7 . map digitToInt . show
+getPrimesHOF start end = filter (\x -> isContaining 7 x && isPrime x) [min start end .. max start end]
