@@ -5,4 +5,4 @@ main = do
 
 
 rf :: (Ord a, Num a) => (a -> a) -> (a -> a) -> ([a] -> (a -> a) -> [a])
-rf f g xs h = map h $ filter (\ x -> f x > g x) xs
+rf f g =(\xs h -> map h $ filter (\x -> f x > g x) xs)
