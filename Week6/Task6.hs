@@ -4,4 +4,5 @@ main = do
     print $ (getOddCompositionValue [(\x -> x + 1),(\x -> div x 2)]) 2 == 1 -- my test
 
 getOddCompositionValue :: [Int -> Int] -> (Int -> Int)
-getOddCompositionValue = foldl1 (.) . reverse
+getOddCompositionValue = foldl1 (.) . map snd . filter (odd . fst) . zip [0..]
+
