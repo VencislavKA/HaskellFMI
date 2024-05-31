@@ -1,4 +1,4 @@
-import Data.Char (isDigit)
+import Data.Char
 main::IO()
 main = do
     print $ liesOn (line (0,0) (1,1)) (5.5,5.5)
